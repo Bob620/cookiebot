@@ -1,0 +1,24 @@
+{
+  "name": "cookiebot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bob620/cookiebot.git"
+  },
+  "author": "Bob620",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bob620/cookiebot/issues"
+  },
+  "homepage": "https://github.com/bob620/cookiebot#readme",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "random-js": "^1.0.8",
+    "redis": "^2.8.0"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "database": {
+    "BASE": "bots",
+    "SETTINGS": "settings",
+    "BOTNAME": "botname",
+    "MAXGUILDS": "maxguilds",
+    "guilds": {
+      "BASE": "guilds",
+      "PREFIX": "prefix",
+      "SETTINGS": "settings",
+      "BLACKLIST": "blacklist"
+    },
+    "commands": {
+      "BASE": "commands",
+      "TYPE": "type",
+      "OPTIONS": "options",
+      "NAME": "name",
+      "BLACKLIST": "blacklist",
+      "HELP": "help"
+    }
+  },
+  "commandTypes": {
+    "STRING": "string",
+    "RANDOM": "random"
+  }
+}

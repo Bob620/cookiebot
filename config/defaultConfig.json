@@ -1,0 +1,6 @@
+{
+  "token": "",
+  "redis": {
+    "prefix": "bot"
+  }
+}
