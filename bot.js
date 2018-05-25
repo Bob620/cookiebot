@@ -32,8 +32,8 @@ class Bot extends EventEmitter {
 			this.emit('disconnect');
 		});
 
-		this.data.client.on('guildCreate', this.addGuild);
-		this.data.client.on('guildDelete', this.leftGuild);
+		this.data.client.on('guildCreate', this.addGuild.bind(this));
+		this.data.client.on('guildDelete', this.leftGuild.bind(this));
 
 		this.data.client.on('message', async message => {
 			if (message.channel.type === 'text' && this.guildExists(message.guild.id)) {
@@ -82,25 +82,30 @@ class Bot extends EventEmitter {
 	}
 
 	async hasMaxGuilds() {
-		return await this.data.botSettings.getMaxGuilds() <= this.data.client.guilds.size;
+		return (await this.data.botSettings.getMaxGuilds()) < this.data.client.guilds.size;
 	}
 
 	async addGuild(guild) {
 		if (this.isInitialized())
-			if (!this.guildExists(guild.id) && await !this.hasMaxGuilds() && guild.available) {
-				this.guilds.set(guild.id, new Guild(guild.id));
-			} else {
-				guild.leave().then(guild => {
-					console.log(`Left ${guild.id}`);
-				});
-			}
+			if (!this.guildExists(guild.id))
+				if (await !this.hasMaxGuilds()) {
+					console.log(`Bot joined guild ${guild.id}`);
+					this.data.botSettings.addGuild(guild.id);
+					this.data.guilds.set(guild.id, new Guild(guild.id));
+				} else {
+					guild.leave().then(guild => {
+						console.log(`Left ${guild.id}`);
+					});
+				}
+			else
+				console.log(`Bot listening in guild ${guild.id}`);
 		else
 			this.data.uninitializedGuilds.push(guild);
 	}
 
 	async leftGuild(guild) {
 		if (this.guildExists(guild.id)) {
-			this.guilds.delete(guild.id);
+			this.data.guilds.delete(guild.id);
 		}
 	}
 }
